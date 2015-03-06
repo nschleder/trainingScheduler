@@ -47,7 +47,6 @@
 <head><base href="/?page_id=1036/"></head>
 
 <body ng-app="trainingScheduler" ng-controller="PageController">
-	<div pickadate ng-model="request.date"></div>
 	
 	<!-- request form -->
 	<div class="row">
