@@ -8,10 +8,11 @@
 	max-width: 100%;
 }
 .red {
-	background: red !important;
+	background: rgb(255, 70, 70);
+	color: white !important;
 }
 .yellow {
-	background: yellow;
+	background: rgb(255, 255, 150);
 }
 .gray {
 	background: #eaeaea;

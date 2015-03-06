@@ -1,8 +1,13 @@
 angular.module('trainingScheduler').controller('PageController', ['$http', '$scope', 'ngDialog', '$modal', '$data', function ($http, $scope, ngDialog, $modal, $data) {
 	$scope.request = {};
+	$scope.request.date = moment().format('YYYY-MM-DD');
+	$scope.request.training = 'FCE';
+	$scope.request.location = '3rd Floor Conference Room';
+	
 	$data.read.grabRequests().then(function(resp) {
 		$scope.requests = resp.results;
 	});
+	
 	$scope.emp = [
 		"John Smith",
 		"Micky Mouse",

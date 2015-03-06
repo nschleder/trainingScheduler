@@ -19,7 +19,7 @@ $data = json_decode($request_body);
 switch($_GET['handler']) {
 	case 'Check if Full':
 		$confroom = $db->get_var("SELECT COUNT(*) FROM requests WHERE location = '3rd Floor Conference Room' AND date = '".$request_body."'");
-		$fl = $db->get_var("SELECT COUNT(*) FROM requests WHERE location = 'Family Law' AND date = '".$request_body."'");		
+		$fl = $db->get_var("SELECT COUNT(*) FROM requests WHERE location = 'Family Law' AND date = '".$request_body."'");
 		$result->confroom = $confroom;
 		$result->fl = $fl;
 		$result->date = $request_body;
@@ -33,24 +33,33 @@ switch($_GET['handler']) {
 		$result->results = $db->get_results("SELECT * FROM requests");
 	break;
 	case 'Submit Request':
-		$insert = $db->insert(
-			'requests', 
-			array( 
-				// 'date' => date("Y-m-d", strtotime($data->date)),
-				'date' => $data->date,
-				'name' => $data->name,
-				'location' => $data->location,
-				'submitted_by' => $current_user
-			), 
-			array( 
-				'%s'
-			) 
-		);
-		
-		if (!$insert) {
-			array_push($result->messages, status('error'));
+		$count = $db->get_var("SELECT COUNT(*) FROM requests WHERE location = '".$data->location."' AND date = '".$data->date."'");
+		debug('clear');
+		debug($count);
+		if($data->location === '3rd Floor Conference Room' && $count >= 15) {
+			array_push($result->messages, status('error', '3rd Floor Conference Room is full!'));
+		} else if($data->location === 'Family Law' && $count >= 10) {
+			array_push($result->messages, status('error', 'Family Law is full!'));
 		} else {
-			array_push($result->messages, status('success', 'Request Submitted!'));
+			$insert = $db->insert(
+				'requests', 
+				array( 
+					'date' => $data->date,
+					'name' => $data->name,
+					'location' => $data->location,
+					'training_type' => $data->training,
+					'submitted_by' => $current_user
+				), 
+				array( 
+					'%s'
+				) 
+			);
+			
+			if (!$insert) {
+				array_push($result->messages, status('error'));
+			} else {
+				array_push($result->messages, status('success', 'Request Submitted!'));
+			}
 		}
 	break;
 }
