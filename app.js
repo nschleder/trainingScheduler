@@ -27,8 +27,6 @@
 					countForDate: function(date) {
 						return $http.get('/wp-content/themes/twentyeleven-child/trainingScheduler/server.php?handler=Count For Date', date).
 =======
-					grabRequests: function() {
-						return $http.get('/wp-content/themes/twentyeleven-child/trainingScheduler/server.php?handler=Grab Requests').
 >>>>>>> origin/master
 							then(function(resp) {
 								return resp.data;
