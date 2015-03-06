@@ -47,66 +47,59 @@
 <head><base href="/?page_id=1036/"></head>
 
 <body ng-app="trainingScheduler" ng-controller="PageController">
+	<div growl></div>
 	<div pickadate ng-model="request.date"></div>
 	
 	<!-- request form -->
-	<div class="row">
-		<div id="newRequest" class="large-8 column">
+	<div class="row" ng-controller="RequestController as RequestCtrl">
+		<div id="newRequest" class="large-6 columns">
 			<form ng-submit="submitRequest(request)">
 				<fieldset>
 					<legend><h3>New</h3></legend>
 					<div class="row">
-						<label class="large-6 columns"> Employees Name:
-							<input list="empNames" type="text"  ng-model="request.name" placeholder="e.g: John Smith">
+						<label class="large-3 columns">Date:
+							<input type="text" ng-model="request.date">
 						</label>
-						<label class="large-6 columns"> Room:
-							<select>
-								<option value="FL">Family Law</option>
-								<option value="3rd">3rd Floor</option>
-							</select>
+						<label class="large-9 columns"> Employees Name:
+							<input list="empNames" type="text"  ng-model="request.name" placeholder="e.g: John Smith">
 						</label>
 					</div>
 					<div class="row">
 						<label class="large-6 columns">Training:
 							<select ng-model="request.training">
-								<option value="FCE">Family Court Enterprise</option>
+								<option value="FCE">Full Court Enterprise</option>
 							</select>
 						</label>
-						<label class="large-6 columns">Date:
-							<input type="text" ng-model="request.date">
+						<label class="large-6 columns"> Room:
+							<select ng-model="request.location">
+								<option value="3rd">3rd Floor</option>
+								<option value="FL">Family Law</option>
+							</select>
 						</label>
 					</div>
-					<input type="submit"  class="button right tiny">
+					<input type="submit" style="margin-bottom:0px;" class="button right tiny">
 				</fieldset>
 			</form>
 			<datalist id="empNames">
 				<option ng-repeat="name in emp" value="{{name}}">
 			</datalist>
 		</div>
-
-		<div id="listRequest" class="large-4 column">
-			<form>
-				<fieldset>
-					<legend><h3>Mar 16th</h3></legend>
-					<table style="width: 100%;">
-						<tr>
-							<td>Jerry schossow</td>
-						</tr>
-						<tr>
-							<td>Nick Schleder</td>
-						</tr>
-						<tr>
-							<td>John Smith</td>
-						</tr>
-						<tr>
-							<td>Han Solo</td>
-						</tr>
-						<tr>
-							<td>Micky Mouse</td>
-						</tr>
-					</table>
-				</fieldset>
-			</form>
+		
+		<div class="large-3 columns" ng-repeat="(key, value) in attendance">
+		<table  style="padding:0;margin:2.125rem 0;width:100%;" >
+			<thead>
+				<tr>
+					<th>
+						{{key}} - {{attendance.length}}
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(k, v) in value">
+					<td>{{v}}</td>
+				</tr>
+			</tbody>
+		</table>
 		</div>
 	</div>
 </body>

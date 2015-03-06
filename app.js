@@ -23,8 +23,14 @@
 								return resp.data;
 							});
 					},
+					grabAttendance: function(arg) {
+						return $http.post('/wp-content/themes/twentyeleven-child/trainingScheduler/server.php?handler=Grab Attendance', arg).
+							then(function(resp) {
+								return resp.data;
+							});
+					},
 					countForDate: function(date) {
-						return $http.get('/wp-content/themes/twentyeleven-child/trainingScheduler/server.php?handler=Count For Date', date).
+						return $http.post('/wp-content/themes/twentyeleven-child/trainingScheduler/server.php?handler=Count For Date', date).
 							then(function(resp) {
 								return resp.data;
 							});

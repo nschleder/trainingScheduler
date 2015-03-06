@@ -1,8 +1,9 @@
 angular.module('trainingScheduler').controller('PageController', ['$http', '$scope', 'ngDialog', '$modal', '$data', function ($http, $scope, ngDialog, $modal, $data) {
-	$scope.request = {};
 	$data.read.grabRequests().then(function(resp) {
 		$scope.requests = resp.results;
 	});
+	$scope.request = {};
+	$scope.attendance = {};
 	$scope.emp = [
 		"John Smith",
 		"Micky Mouse",
@@ -37,4 +38,11 @@ angular.module('trainingScheduler').controller('PageController', ['$http', '$sco
 		$data.write.submitRequest(request).then(function(result) {
 		});
 	};
+	
+	$scope.$watch('request.date', function () {
+		$data.read.grabAttendance($scope.request.date).then(function(result) {
+			$scope.attendance = result.results;
+			console.log($scope.attendance);
+		});
+	});
 }]);
