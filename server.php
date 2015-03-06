@@ -32,6 +32,24 @@ switch($_GET['handler']) {
 	case 'Grab Requests':
 		$result->results = $db->get_results("SELECT * FROM requests");
 	break;
+	case 'Grab Attendance':
+		$names = $db->get_results("SELECT id, name, location FROM `requests` WHERE date ='".$request_body."'");
+		$info = new stdClass();
+		$info ->{'Family Law'} = new stdClass();
+		$info ->{'3rd Floor Conference Room'} = new stdClass();
+		foreach ($names as $listNames){
+			$info->{$listNames->location}->{$listNames->id} = $listNames->name;
+			// if ($listNames->location == 'Family Law'){
+				// $info->{'Family Law'}->{$listNames->id} = $listNames->name;
+				// array_push($info ->{'Family Law'}, $listNames->name);
+			// } elseif ($listNames->location == '3rd Floor Conference Room') {
+				
+				// array_push($info ->{'3rd Floor Conference Room'}, $listNames->name);
+			// }
+		}
+		debug($info, true);
+		$result->results=$info;
+	break;
 	case 'Submit Request':
 		$insert = $db->insert(
 			'requests', 
