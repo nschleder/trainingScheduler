@@ -23,7 +23,6 @@
 
 <!-- ngModules -->
 <script type="text/javascript" src="<?=$path.$inc?>/angular.min.js"></script>
-<script type="text/javascript" src="<?=$path.$inc.$ng?>/angular-route.js"></script>
 <script type="text/javascript" src="<?=$path.$inc.$ng?>/growlNotifications/angular-growl.min.js"></script>
 <script type="text/javascript" src="<?=$path.$inc.$ng?>/angular-animate.js"></script>
 <script type="text/javascript" src="<?=$path.$inc.$ng?>/ngDialog/ngDialog.min.js"></script>

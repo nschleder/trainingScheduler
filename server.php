@@ -15,8 +15,23 @@ $db->show_errors();
 
 $request_body = file_get_contents('php://input');
 $data = json_decode($request_body);
-
+// debug('clear');
 switch($_GET['handler']) {
+	case 'Check if Full':
+		$confroom = $db->get_var("SELECT COUNT(*) FROM requests WHERE location = '3rd Floor Conference Room' AND date = '".$request_body."'");
+		$fl = $db->get_var("SELECT COUNT(*) FROM requests WHERE location = 'Family Law' AND date = '".$request_body."'");		
+		$result->confroom = $confroom;
+		$result->fl = $fl;
+		$result->date = $request_body;
+	break;
+	case 'Grab Requests For Date':
+		// debug('clear');
+		// debug($data, true);
+		$result->results = $db->get_results("SELECT * FROM requests WHERE date =".$data->data);
+	break;
+	case 'Grab Requests':
+		$result->results = $db->get_results("SELECT * FROM requests");
+	break;
 	case 'Submit Request':
 		$insert = $db->insert(
 			'requests', 

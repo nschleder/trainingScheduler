@@ -7,3 +7,12 @@
 .row {
 	max-width: 100%;
 }
+.red {
+	background: red !important;
+}
+.yellow {
+	background: yellow;
+}
+.gray {
+	background: #eaeaea;
+}
