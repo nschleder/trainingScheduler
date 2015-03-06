@@ -52,25 +52,36 @@
 	<!-- request form -->
 	<div class="row">
 		<div id="newRequest" class="large-8 column">
-			<form>
+			<form ng-submit="submitRequest(request)">
 				<fieldset>
 					<legend><h3>New</h3></legend>
 					<div class="row">
-						<label class="large-6 columns "> Emploeees Name:
-							<input type="text" ng-model="request.name" placeholder="John Smith">
+						<label class="large-6 columns"> Employees Name:
+							<input list="empNames" type="text"  ng-model="request.name" placeholder="e.g: John Smith">
 						</label>
-						<label class="large-6 columns "> Room:
-							<input type="text" ng-model="request.location" placeholder="John Smith">
+						<label class="large-6 columns"> Room:
+							<select>
+								<option value="FL">Family Law</option>
+								<option value="3rd">3rd Floor</option>
+							</select>
 						</label>
 					</div>
 					<div class="row">
-						<label class="large-12 columns">Date:
+						<label class="large-6 columns">Training:
+							<select ng-model="request.training">
+								<option value="FCE">Family Court Enterprise</option>
+							</select>
+						</label>
+						<label class="large-6 columns">Date:
 							<input type="text" ng-model="request.date">
 						</label>
 					</div>
-					<input type="submit" class="button right tiny">
+					<input type="submit"  class="button right tiny">
 				</fieldset>
 			</form>
+			<datalist id="empNames">
+				<option ng-repeat="name in emp" value="{{name}}">
+			</datalist>
 		</div>
 
 		<div id="listRequest" class="large-4 column">
