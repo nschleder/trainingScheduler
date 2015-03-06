@@ -11,7 +11,6 @@
 					}
 				},
 				read: {
-<<<<<<< HEAD
 					grabRequestsForDate: function(arg) {
 						return $http.get('/wp-content/themes/twentyeleven-child/trainingScheduler/server.php?handler=Grab Requests for Date', arg).
 							then(function(resp) {
@@ -26,8 +25,6 @@
 					},
 					countForDate: function(date) {
 						return $http.get('/wp-content/themes/twentyeleven-child/trainingScheduler/server.php?handler=Count For Date', date).
-=======
->>>>>>> origin/master
 							then(function(resp) {
 								return resp.data;
 							});
