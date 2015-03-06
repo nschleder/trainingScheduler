@@ -85,60 +85,16 @@
 			</datalist>
 		</div>
 		
-		<div class="large-3 columns">
 		<div class="large-3 columns" ng-repeat="(key, value) in attendance">
 		<table  style="padding:0;margin:2.125rem 0;width:100%;" >
 			<thead>
 				<tr>
 					<th>
-						<h3>Mar 16th</h3>
-						{{key}} - {{attendance.length}}
+						{{key}} - {{}}
 					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>Jerry schossow</td>
-				</tr>
-				<tr>
-					<td>Nick Schleder</td>
-				</tr>
-				<tr>
-					<td>John Smith</td>
-				</tr>
-				<tr>
-					<td>Han Solo</td>
-				</tr>
-				<tr>
-					<td>Micky Mouse</td>
-				</tr>
-			</tbody>
-		</table>
-		</div>
-		<div class="large-3 columns">
-		<table class="large-3 columns" style="padding:0;margin:2.125rem 0;width:100%;" >
-			<thead>
-				<tr>
-					<th>
-						<h3>Mar 16th</h3>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Jerry schossow</td>
-				</tr>
-				<tr>
-					<td>Nick Schleder</td>
-				</tr>
-				<tr>
-					<td>John Smith</td>
-				</tr>
-				<tr>
-					<td>Han Solo</td>
-				</tr>
-				<tr>
-					<td>Micky Mouse</td>
 				<tr ng-repeat="(k, v) in value">
 					<td>{{v}}</td>
 				</tr>
