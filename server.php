@@ -10,13 +10,15 @@ if (!is_user_logged_in()) {
 }
 $current_user = wp_get_current_user();
 $current_user = $current_user->data->user_login;
-$db = new wpdb('trainingSched', 'zStEY4ypRArQ5fs5', 'trainingSched', 'localhost');
+$db = new wpdb('trainingSched', 'test', 'trainingsched', 'localhost');
 $db->show_errors();
 
 $request_body = file_get_contents('php://input');
 $data = json_decode($request_body);
-
 switch($_GET['handler']) {
+	case 'Grab Requests':
+		// $results->results = 
+	break;
 	case 'Submit Request':
 		$insert = $db->insert(
 			'requests', 
@@ -28,10 +30,12 @@ switch($_GET['handler']) {
 				'submitted_by' => $current_user
 			), 
 			array( 
+				'%s',
+				'%s',
 				'%s'
 			) 
 		);
-		
+
 		if (!$insert) {
 			array_push($result->messages, status('error'));
 		} else {

@@ -45,7 +45,7 @@
 <script type="text/javascript" src="<?=$path.$ap?>RequestController.js"></script>
 <script type="text/javascript" src="<?=$path.$ap?>CalendarController.js"></script>
 
-<head><base href="/?page_id=1036/"></head>
+<head><base href="/?page_id=1034/"></head>
 
 <body ng-app="trainingScheduler" ng-controller="PageController">
 	<div pickadate ng-model="request.date"></div>
@@ -53,15 +53,17 @@
 	<!-- request form -->
 	<div class="row">
 		<div id="newRequest" class="large-8 column">
-			<form>
+			<form ng-submit="submitRequest(request)">
 				<fieldset>
 					<legend><h3>New</h3></legend>
 					<div class="row">
-						<label class="large-6 columns "> Emploeees Name:
-							<input type="text" ng-model="request.name" placeholder="John Smith">
+						<label class="large-6 columns"> Employees Name:
+							<input list="empNames" type="text"  ng-model="request.name" placeholder="e.g: John Smith">
 						</label>
-						<label class="large-6 columns "> Room:
-							<input type="text" ng-model="request.location" placeholder="John Smith">
+						<label class="large-6 columns"> Room:
+							<br>
+							<input type="radio" ng-model="request.location" value="Family Law"> Family Law&nbsp;
+							&nbsp;<input type="radio" ng-model="request.location" value="3rd Floor Conference Room">3rd Floor Conference Room
 						</label>
 					</div>
 					<div class="row">
@@ -69,9 +71,12 @@
 							<input type="text" ng-model="request.date">
 						</label>
 					</div>
-					<input type="submit" class="button right tiny">
+					<input type="submit"  class="button right tiny">
 				</fieldset>
 			</form>
+			<datalist id="empNames">
+				<option ng-repeat="name in emp" value="{{name}}">
+			</datalist>
 		</div>
 
 		<div id="listRequest" class="large-4 column">

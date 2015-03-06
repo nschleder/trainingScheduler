@@ -3,8 +3,8 @@
 		.factory('$data', ['$http', function($http) {
 			return {
 				read: {
-					grabEmployeeRequests: function() {
-						return $http.get('/wp-content/themes/twentyeleven-child/leaveManagement/server.php?handler=Grab Employee Requests').
+					grabRequests: function() {
+						return $http.get('/wp-content/themes/twentyeleven-child/trainingScheduler/server.php?handler=Grab Requests').
 							then(function(resp) {
 								return resp.data;
 							});
@@ -12,7 +12,7 @@
 				},
 				write: {
 					updateRequest: function(request) {
-						return $http.post('/wp-content/themes/twentyeleven-child/leaveManagement/server.php?handler=Update Request', request).
+						return $http.post('/wp-content/themes/twentyeleven-child/trainingScheduler/server.php?handler=Update Request', request).
 							then(function(resp) {
 								return resp;
 							});

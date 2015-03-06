@@ -1,3 +1,3 @@
-angular.module('trainingScheduler').controller('RequestController', ['$http', '$scope', 'ngDialog', '$modal', function ($http, $scope, ngDialog, $modal) {
+angular.module('trainingScheduler').controller('RequestController', ['$http', '$scope', 'ngDialog', '$modal', '$data', function ($http, $scope, ngDialog, $modal, $data) {
 	
 }]);
