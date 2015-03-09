@@ -10,38 +10,13 @@ angular.module('trainingScheduler').controller('PageController', ['$http', '$sco
 	
 	$scope.request = {};
 	$scope.attendance = {};
-	$scope.emp = [
-		"John Smith",
-		"Micky Mouse",
-		"Luke Skywalker",
-		"John Shapered",
-		"Gordon Freemen",
-		"Lele Freewalker",
-		"Jessie SeeFar",
-		"Tarzan Jungal`Lard",
-		"Jerry Schossow",
-		"Nick Schleder",
-		"Ahn Tran",
-		"Gino Appelbaum",
-		"Queen Lafountain",
-		"Eleni Witcher",
-		"Nola Macarthur",
-		"Jaessa Zahm",
-		"Elwood Spaulding",
-		"Dedra Kicklighter",
-		"Jere Gerdts",
-		"Matt Kaye",
-		"Thomes Elbert",
-		"Janeth Almanzar",
-		"Keren Liu",
-		"Emily Armor",
-		"Merissa Asaro",
-		"Zada Barter",
-		"Margot Minton"
-	];
 
 	$scope.submitRequest = function(request) {
 		$data.write.submitRequest(request).then(function(result) {
+			$data.read.grabAttendance(request.date).then(function(result) {
+				$scope.attendance = result.results;
+				console.log($scope.attendance);
+			});
 		});
 	};
 	
@@ -51,4 +26,17 @@ angular.module('trainingScheduler').controller('PageController', ['$http', '$sco
 			console.log($scope.attendance);
 		});
 	});
+
+	$scope.deleteRequest = function(id, key) {
+		$data.write.deleteRequest(id).then(function(result) {
+			if (result.data.result === 1) {
+				delete $scope.attendance[key][id];
+			}
+		});
+	};
+	
+	$scope.locCount= function(ob) {
+		return Object.keys(ob).length;
+	};
+
 }]);

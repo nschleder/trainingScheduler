@@ -7,6 +7,34 @@
 	$ng = 'ngModules/';
 	$ap = 'trainingScheduler/';
 	$c = 'controllers/';
+	
+	// require_once( WP_PLUGIN_DIR . '/simple-ldap-login/adLDAP.php' );
+
+	// $username='systemaccess'; 
+	// $password='540EMain';
+
+	// define( 'DOMAIN_CONTROLLERS', 	'stk540dc01.scsjc.com' );
+	// define( 'SECURITY_MODE', 		'high' );
+	// define( 'ACCOUNT_SUFFIX', 		'@scsjc.com' );
+	// define( 'BASE_DN', 				'DC=scsjc,DC=com' );
+	// define( 'USE_TLS',				false );
+	// define( 'USE_SSL', 				false );
+
+	// $adldap_options = array(
+		// 'account_suffix'		=>	ACCOUNT_SUFFIX,
+		// 'base_dn'				=>	BASE_DN,
+		// 'use_tls'				=>	USE_TLS,
+		// 'use_ssl'				=>	USE_SSL,
+		// 'domain_controllers'	=>	explode( ';', DOMAIN_CONTROLLERS )
+	// );
+
+	// try {
+		// $adldap = new adLDAP( $adldap_options );
+	// }
+	// catch (adLDAPException $e) {
+		// echo $e; 
+		// exit();   
+	// }
 ?>
 
 <!-- Foundation-->
@@ -28,6 +56,11 @@
 <script type="text/javascript" src="<?=$path.$inc.$ng?>/ngDialog/ngDialog.min.js"></script>
 <script type="text/javascript" src="<?=$path.$inc.$ng?>/angular-datepicker.min.js"></script>
 <script type="text/javascript" src="<?=$path.$inc.$ng?>/ngPickDate/angular-pickadate.js"></script>
+<?php /*
+<link rel="stylesheet" href="<?=$path.$inc.$ng?>/ngPickDate - trainSched/angular-pickadate.css" />
+<script type="text/javascript" src="<?=$path.$inc.$ng?>/ngPickDate - trainSched/angular-pickadate.js"></script>
+*/ ?>
+
 
 <!-- moment -->
 <script type="text/javascript" src="<?=$path.$inc?>/moment.js"></script>
@@ -48,11 +81,10 @@
 
 <body ng-app="trainingScheduler" ng-controller="PageController as PageCtrl">
 	<div growl></div>
-	<div pickadate ng-model="request.date"></div>
-	
+	<div pickadate ng-model="request.date" default-date="request.date"></div>
 	<!-- request form -->
-	<div class="row" ng-controller="RequestController as RequestCtrl">
-		<div id="newRequest" class="large-6 columns">
+	<div class="row" ng-controller="RequestController as RequestCtrl">		
+		<div class="large-6 columns" >
 			<form ng-submit="submitRequest(request)">
 				<fieldset>
 					<legend><h3>New</h3></legend>
@@ -60,7 +92,7 @@
 						<label class="large-3 columns">Date:
 							<input type="text" ng-model="request.date">
 						</label>
-						<label class="large-9 columns"> Employees Name:
+						<label class="large-9 columns"> Employee:
 							<input list="empNames" type="text"  ng-model="request.name" placeholder="e.g: John Smith">
 						</label>
 					</div>
@@ -81,25 +113,36 @@
 				</fieldset>
 			</form>
 			<datalist id="empNames">
-				<option ng-repeat="name in emp" value="{{name}}">
+				<?php
+					// if($adldap->authenticate($username, $password)){
+						// $groupMembers = $adldap->group_members('All Superior Court Staff');
+						
+						// foreach ($groupMembers as $member) {
+							// $isGUID = false;
+							// $userinfo = $adldap->user_info($member, array("*"),$isGUID);
+							// $dispname = $userinfo[0]['displayname'][0];
+							// echo '<option value="'.$dispname.'">';
+						// }
+					// }
+				?>
 			</datalist>
 		</div>
 		
 		<div class="large-3 columns" ng-repeat="(key, value) in attendance">
-		<table  style="padding:0;margin:2.125rem 0;width:100%;" >
-			<thead>
-				<tr>
-					<th>
-						{{key}} - {{}}
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="(k, v) in value">
-					<td>{{v}}</td>
-				</tr>
-			</tbody>
-		</table>
+			<table  style="padding:0;margin:2.125rem 0;width:100%;" >
+				<thead>
+					<tr>
+						<th>
+							{{key}} - {{locCount(value)}}
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="(k, v) in value">
+						<td>{{v}} <i class="fi-x right" ng-click="deleteRequest(k, key)" style="cursor:pointer;"></i></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </body>

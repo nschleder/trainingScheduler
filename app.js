@@ -51,6 +51,12 @@
 							then(function(resp) {
 								return resp;
 							});
+					},
+					deleteRequest: function(request) {
+						return $http.post('/wp-content/themes/twentyeleven-child/trainingScheduler/server.php?handler=Delete Request', request).
+							then(function(resp) {
+								return resp;
+							});
 					}
 				}
 			}

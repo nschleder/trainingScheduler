@@ -1,6 +1,6 @@
 <?php
-// require_once("/var/www/html/wp-load.php");
 require_once("C:/xampp/htdocs/wp-load.php");
+// require_once("/var/www/html/wp-load.php");
 header('Content-Type: application/json');
 $result = new stdClass();
 $result->messages = array();
@@ -47,13 +47,13 @@ switch($_GET['handler']) {
 				// array_push($info ->{'3rd Floor Conference Room'}, $listNames->name);
 			// }
 		}
-		debug($info, true);
+		// debug($info, true);
 		$result->results=$info;
 	break;
 	case 'Submit Request':
 		$count = $db->get_var("SELECT COUNT(*) FROM requests WHERE location = '".$data->location."' AND date = '".$data->date."'");
-		debug('clear');
-		debug($count);
+		// debug('clear');
+		// debug($count);
 		if($data->location === '3rd Floor Conference Room' && $count >= 15) {
 			array_push($result->messages, status('error', '3rd Floor Conference Room is full!'));
 		} else if($data->location === 'Family Law' && $count >= 10) {
@@ -80,9 +80,23 @@ switch($_GET['handler']) {
 			}
 		}
 	break;
+	case 'Delete Request':
+		$del = $db->delete('requests', array ('id' =>$request_body, 'submitted_by' => $current_user));
+		if (!$del) {
+			if($del === 0) {
+				array_push($result->messages, status('error', 'You can only delete who you\'ve scheduled yourself.'));
+			} else {
+				array_push($result->messages, status('error'));
+			}
+		} else {
+			array_push($result->messages, status('success', 'Request Deleted!'));
+		}
+		$result->result = $del;
+	break;
 }
 
-echo json_encode($result, JSON_NUMERIC_CHECK);
+// echo json_encode($result, JSON_NUMERIC_CHECK);
+echo json_encode($result);
 
 function status($statVal, $textVal=false) {
 	if ( !$textVal ) {
